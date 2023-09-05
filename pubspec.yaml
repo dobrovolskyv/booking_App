@@ -65,11 +65,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/colors/
+    - assets/styles/style.dart
     - assets/icons/emoji.png
     - assets/icons/done.png
     - assets/icons/close.png
     - assets/icons/arrow.png
+    - assets/icons/arrow_blue.png
     - assets/icons/star.png
     - assets/images/
     - assets/images/img1.jpg

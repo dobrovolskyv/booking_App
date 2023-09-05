@@ -13,7 +13,12 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  List _items = [];
+  List<dynamic> _items = [];
+  @override
+  void initState() {
+    super.initState();
+    readJSON();
+  }
 
   Future<void> readJSON() async {
     final String response =
@@ -39,32 +44,59 @@ class _TestState extends State<Test> {
         body: Column(
           children: [
             _items.isNotEmpty
-                    ? Expanded(
-                        child: ListView.builder(
-                        itemCount: _items.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            key: ValueKey(_items[index]['id']),
-                            margin: const EdgeInsets.all(10),
-                            color: Colors.amber[900],
-                            child: ListTile(
-                              leading: Text(_items[index]['name']),
-                              title: Text(_items[index]['price']),
-                              subtitle: Text(_items[index]['price_per']),
-                            ),
-                          );
-                        },
-                      ))
-                    : ElevatedButton(
-                        onPressed: () {
-                          readJSON();
-                        },
-                        child: Center(
-                          child: Text('load json'),
-                        )
-                        ),
+                ? Expanded(
+                    child: ListView.builder(
+                    itemCount: _items.length,
+                    itemBuilder: (context, index) {
+                      final doc = _items[index];
+                      final details = doc['peculiarities'];
+                      return Card(
+                          key: ValueKey(_items[index]['id']),
+                          margin: const EdgeInsets.all(10),
+                          color: Colors.amber[900],
+                          child: Column(
+                            children: [
+                              Text(_items[index]['name']),
+                              Row(
+                                children: details.map<Widget>((detail) {
+                                  return Row(
+                                    children: [
+                                      Text(detail),
+                                    ],
+                                  );
+                                }).toList(),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    _items[index]['price'],
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontFamily: 'SF Pro Display',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.20,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(_items[index]['price_per'], 
+                                  style: const TextStyle(
+                                  color: Color(0xFF828796),
+                                  fontSize: 16,
+                                  fontFamily: 'SF Pro Display',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.20,
+                                  ),),
+                                                                  ],
+                              )
+                            ],
+                          ));
+                    },
+                  ))
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  )
           ],
-        )
-        );
+        ));
   }
 }
