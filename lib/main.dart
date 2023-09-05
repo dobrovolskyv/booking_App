@@ -1,3 +1,4 @@
+import 'package:booking/screens/Test.dart';
 import 'package:booking/screens/booking.dart';
 import 'package:booking/screens/apartmensScreen.dart';
 import 'package:booking/screens/successScreen.dart';
@@ -26,8 +27,10 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/appartmenScreen': (context) => const AppartmenScreen(),
         '/booking': (context) => const Booking(),
-        '/success':(context) => const Success()
+        '/success':(context) => const Success(),
+        '/test':(context) => const Test()
       },
     );
   }
 }
+
